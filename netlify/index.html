@@ -1,0 +1,1212 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Digestiva · Enfermedades del sistema digestivo</title>
+  <meta name="description" content="Guía interactiva y concisa sobre las principales enfermedades del sistema digestivo: síntomas, causas, diagnóstico y tratamiento." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+/* ============ Tokens ============ */
+:root {
+  --bg: #fbf5ef;
+  --bg-alt: #f5e9df;
+  --surface: #ffffff;
+  --surface-2: #fdf8f4;
+  --ink: #2a1c22;
+  --ink-2: #5c4a51;
+  --muted: #8a7880;
+  --line: #ecdcd0;
+  --accent: #e2604a;
+  --accent-ink: #ffffff;
+  --accent-soft: #fde3dc;
+  --teal: #2a8a7e;
+  --shadow: 0 10px 30px -12px rgba(90, 40, 30, .22);
+  --shadow-lg: 0 30px 60px -20px rgba(90, 40, 30, .35);
+  --torso-1: #fde9dd;
+  --torso-2: #f6d6c6;
+  --colon-haustra: rgba(255, 255, 255, .45);
+  --radius: 20px;
+
+  --c-boca: #e8848f;
+  --c-esofago: #d9707a;
+  --c-estomago: #ef8a6c;
+  --c-higado: #a8433f;
+  --c-vesicula: #6ea84a;
+  --c-pancreas: #e8b04b;
+  --c-delgado: #ea8fa3;
+  --c-colon: #c9745a;
+  --c-apendice: #b8664f;
+  --c-recto: #9c4e5b;
+
+  --t-inflamatoria: #e2604a;
+  --t-infecciosa: #7a5fd0;
+  --t-autoinmune: #2a8a7e;
+  --t-funcional: #3b82c4;
+  --t-tumoral: #9c3a55;
+  --t-metabolica: #c58a1a;
+  --t-estructural: #6b7280;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1a1216; --bg-alt: #22171c; --surface: #2a1e24; --surface-2: #241a1f;
+    --ink: #f7ebe6; --ink-2: #d4c2c3; --muted: #a38f94; --line: #3d2c33;
+    --accent: #f27a62; --accent-soft: #4a2622; --teal: #4fc2b1;
+    --shadow: 0 10px 30px -12px rgba(0,0,0,.6); --shadow-lg: 0 30px 60px -20px rgba(0,0,0,.7);
+    --torso-1: #3a2930; --torso-2: #2a1d23; --colon-haustra: rgba(0,0,0,.25);
+    --t-infecciosa: #9b84ea; --t-autoinmune: #4fc2b1; --t-funcional: #6aa9e2; --t-tumoral: #d36488; --t-metabolica: #e2ad45; --t-estructural: #a3a9b4;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1a1216; --bg-alt: #22171c; --surface: #2a1e24; --surface-2: #241a1f;
+  --ink: #f7ebe6; --ink-2: #d4c2c3; --muted: #a38f94; --line: #3d2c33;
+  --accent: #f27a62; --accent-soft: #4a2622; --teal: #4fc2b1;
+  --shadow: 0 10px 30px -12px rgba(0,0,0,.6); --shadow-lg: 0 30px 60px -20px rgba(0,0,0,.7);
+  --torso-1: #3a2930; --torso-2: #2a1d23; --colon-haustra: rgba(0,0,0,.25);
+  --t-infecciosa: #9b84ea; --t-autoinmune: #4fc2b1; --t-funcional: #6aa9e2; --t-tumoral: #d36488; --t-metabolica: #e2ad45; --t-estructural: #a3a9b4;
+  color-scheme: dark;
+}
+
+/* ============ Base ============ */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 16px/1.6 "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  transition: background .3s, color .3s;
+}
+h1, h2, h3 { font-family: "Fraunces", Georgia, serif; line-height: 1.15; margin: 0 0 .5em; letter-spacing: -.01em; }
+h4 { margin: 1.4em 0 .6em; font-size: .78rem; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+p { margin: 0 0 1em; }
+a { color: inherit; }
+button { font: inherit; color: inherit; cursor: pointer; }
+.muted { color: var(--muted); }
+.skip { position: absolute; left: -999px; }
+.skip:focus { left: 16px; top: 16px; z-index: 100; background: var(--accent); color: #fff; padding: 8px 14px; border-radius: 10px; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 8px; }
+
+/* ============ Topbar ============ */
+.topbar {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; gap: 24px;
+  padding: 14px clamp(16px, 4vw, 48px);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 60%, transparent);
+}
+.brand { display: flex; align-items: center; gap: 10px; font: 700 1.25rem "Fraunces", serif; text-decoration: none; }
+.brand svg { width: 28px; height: 28px; fill: var(--accent); }
+.nav { display: flex; gap: 4px; margin-left: auto; }
+.nav a { text-decoration: none; font-size: .92rem; font-weight: 500; color: var(--ink-2); padding: 8px 12px; border-radius: 999px; transition: .2s; }
+.nav a:hover { background: var(--accent-soft); color: var(--accent); }
+.theme-toggle { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); display: grid; place-items: center; }
+.theme-toggle svg { width: 18px; height: 18px; fill: var(--ink-2); }
+@media (max-width: 760px) { .nav { display: none; } .theme-toggle { margin-left: auto; } }
+
+/* ============ Botones ============ */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; justify-content: center;
+  padding: 14px 24px; border-radius: 999px; font-weight: 600; text-decoration: none;
+  border: 1.5px solid transparent; transition: transform .2s, box-shadow .2s, background .2s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); box-shadow: 0 10px 24px -10px var(--accent); }
+.btn.ghost { border-color: var(--line); background: var(--surface); }
+.btn.small { padding: 10px 18px; font-size: .9rem; }
+
+/* ============ Hero ============ */
+.hero { position: relative; overflow: hidden; padding: clamp(64px, 12vw, 140px) clamp(16px, 5vw, 64px) clamp(56px, 8vw, 96px); }
+.hero-inner { position: relative; max-width: 880px; margin: 0 auto; text-align: center; }
+.eyebrow { font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+.hero h1 { font-size: clamp(2.4rem, 7vw, 4.6rem); }
+.hero h1 em { font-style: italic; color: var(--accent); }
+.lead { font-size: clamp(1.05rem, 2vw, 1.25rem); color: var(--ink-2); max-width: 640px; margin: 0 auto 32px; }
+.hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 56px 0 0; }
+.stats div { background: color-mix(in srgb, var(--surface) 70%, transparent); backdrop-filter: blur(8px); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 16px; }
+.stats dt { font: 700 clamp(2rem, 5vw, 2.8rem)/1 "Fraunces", serif; color: var(--accent); }
+.stats dd { margin: 8px 0 0; font-size: .88rem; color: var(--ink-2); }
+@media (max-width: 600px) { .stats { grid-template-columns: 1fr; } }
+
+.blob { position: absolute; border-radius: 50%; filter: blur(60px); opacity: .55; animation: float 18s ease-in-out infinite; }
+.b1 { width: 420px; height: 420px; background: #f6a58f; top: -120px; left: -100px; }
+.b2 { width: 360px; height: 360px; background: #f2c3cf; bottom: -140px; right: -60px; animation-delay: -6s; }
+.b3 { width: 260px; height: 260px; background: #f4d29c; top: 40%; left: 60%; animation-delay: -12s; opacity: .4; }
+:root[data-theme="dark"] .blob { opacity: .18; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .blob { opacity: .18; } }
+@keyframes float { 50% { transform: translate(30px, 40px) scale(1.08); } }
+
+/* ============ Secciones ============ */
+.section { padding: clamp(64px, 9vw, 112px) clamp(16px, 5vw, 64px); max-width: 1240px; margin: 0 auto; }
+.section.alt { max-width: none; background: var(--bg-alt); }
+.section.alt > * { max-width: 1112px; margin-left: auto; margin-right: auto; }
+.section-head { max-width: 640px; margin-bottom: 40px; }
+.section-head h2 { font-size: clamp(2rem, 4.5vw, 3rem); }
+.section-head p:last-child { color: var(--ink-2); }
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.in { opacity: 1; transform: none; }
+
+/* ============ Mapa ============ */
+.map-wrap { display: grid; grid-template-columns: minmax(280px, 420px) 1fr; gap: 32px; align-items: start; }
+@media (max-width: 860px) { .map-wrap { grid-template-columns: 1fr; } }
+.body-card { background: var(--surface); border: 1px solid var(--line); border-radius: 28px; padding: 24px; box-shadow: var(--shadow); position: sticky; top: 90px; }
+@media (max-width: 860px) { .body-card { position: static; } }
+.body-card svg { width: 100%; height: auto; max-height: 70vh; display: block; margin: 0 auto; }
+.map-hint { text-align: center; font-size: .82rem; color: var(--muted); margin: 12px 0 0; }
+kbd { font: 600 .75rem "Inter"; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 6px; padding: 1px 6px; }
+
+.organ { cursor: pointer; transition: opacity .3s, filter .3s; transform-box: fill-box; transform-origin: center; outline: none; }
+.organ > * { transition: transform .3s; }
+.organ:hover, .organ:focus-visible, .organ.active { filter: drop-shadow(0 0 8px color-mix(in srgb, var(--accent) 55%, transparent)) brightness(1.08); }
+.organ.dim { opacity: .28; }
+.organ.active { animation: beat 1.6s ease-in-out infinite; }
+@keyframes beat { 50% { filter: drop-shadow(0 0 14px color-mix(in srgb, var(--accent) 70%, transparent)) brightness(1.15); } }
+.hit { fill: transparent; }
+.hit-s { stroke: transparent; stroke-width: 22; fill: none; }
+.hit-s.wide { stroke-width: 30; }
+.torso { opacity: .9; }
+
+.organ-panel { background: var(--surface); border: 1px solid var(--line); border-radius: 28px; padding: clamp(24px, 4vw, 40px); box-shadow: var(--shadow); min-height: 420px; }
+.panel-empty h3 { font-size: 1.8rem; }
+.panel-empty p { color: var(--ink-2); }
+.pulse-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--accent); margin-bottom: 18px; box-shadow: 0 0 0 0 var(--accent); animation: pulse 2s infinite; }
+@keyframes pulse { 70% { box-shadow: 0 0 0 16px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+.organ-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+
+.panel-content { animation: slideIn .4s ease; }
+@keyframes slideIn { from { opacity: 0; transform: translateX(16px); } }
+.panel-back { background: none; border: 0; padding: 0; color: var(--muted); font-size: .88rem; margin-bottom: 18px; }
+.panel-back:hover { color: var(--accent); }
+.panel-title { display: flex; align-items: center; gap: 12px; }
+.panel-title h3 { font-size: clamp(1.8rem, 3.5vw, 2.4rem); margin: 0; }
+.organ-dot { width: 18px; height: 18px; border-radius: 50%; background: var(--tc); box-shadow: 0 0 0 6px color-mix(in srgb, var(--tc) 25%, transparent); flex: none; }
+.panel-content > p { color: var(--ink-2); margin-top: 16px; }
+.facts { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.facts li { background: color-mix(in srgb, var(--tc) 14%, var(--surface)); border-radius: 12px; padding: 8px 12px; font-size: .88rem; font-weight: 500; }
+.mini-list { display: grid; gap: 8px; }
+.mini { display: flex; justify-content: space-between; align-items: center; gap: 12px; text-align: left; padding: 14px 16px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 14px; font-weight: 600; transition: .2s; }
+.mini:hover { border-color: var(--tc); transform: translateX(4px); }
+
+/* ============ Chips y etiquetas ============ */
+.chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  --tc: var(--accent);
+  border: 1.5px solid var(--line); background: var(--surface); border-radius: 999px;
+  padding: 8px 14px; font-size: .88rem; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; transition: .2s;
+}
+.chip[style]::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--tc); }
+.chip:hover { border-color: var(--tc); }
+.chip.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.chip-row.small .chip { padding: 6px 12px; font-size: .82rem; }
+.tag { display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: .03em; padding: 4px 10px; border-radius: 999px; white-space: nowrap; background: color-mix(in srgb, var(--tc) 18%, var(--surface)); color: var(--ink); }
+.tag.type { --tc: var(--t-estructural); color: var(--tc); background: color-mix(in srgb, var(--tc) 14%, transparent); }
+.t-inflamatoria { --tc: var(--t-inflamatoria) !important; } .t-infecciosa { --tc: var(--t-infecciosa) !important; }
+.t-autoinmune { --tc: var(--t-autoinmune) !important; } .t-funcional { --tc: var(--t-funcional) !important; }
+.t-tumoral { --tc: var(--t-tumoral) !important; } .t-metabolica { --tc: var(--t-metabolica) !important; }
+.t-estructural { --tc: var(--t-estructural) !important; }
+
+/* ============ Recorrido ============ */
+.journey { display: grid; grid-template-columns: 240px 1fr; gap: 40px; align-items: center; }
+@media (max-width: 760px) { .journey { grid-template-columns: 1fr; } .journey-figure { max-width: 200px; margin: 0 auto; } }
+.journey-figure svg { width: 100%; height: auto; }
+.journey-figure .organ { cursor: default; animation: none; }
+.bolus { r: 7px; fill: var(--accent); stroke: #fff; stroke-width: 2.5; transition: transform .9s cubic-bezier(.6, 0, .3, 1); filter: drop-shadow(0 0 6px var(--accent)); }
+.journey-main { min-width: 0; }
+.journey-track { position: relative; height: 6px; background: var(--line); border-radius: 6px; margin: 20px 12px 64px; }
+.journey-fill { position: absolute; inset: 0 auto 0 0; background: linear-gradient(90deg, var(--c-boca), var(--c-estomago), var(--c-delgado), var(--c-colon)); border-radius: 6px; transition: width .6s ease; }
+.journey-stops { position: absolute; inset: 0; display: flex; justify-content: space-between; }
+.stop { position: relative; background: none; border: 0; padding: 0; width: 0; display: flex; justify-content: center; }
+.stop .dot { position: absolute; top: -9px; width: 24px; height: 24px; border-radius: 50%; background: var(--surface); border: 3px solid var(--line); transition: .3s; }
+.stop.done .dot { border-color: var(--tc); background: var(--tc); }
+.stop.current .dot { transform: scale(1.3); box-shadow: 0 0 0 6px color-mix(in srgb, var(--tc) 25%, transparent); }
+.stop .lbl { position: absolute; top: 24px; white-space: nowrap; font-size: .78rem; font-weight: 600; color: var(--muted); }
+.stop.current .lbl { color: var(--ink); }
+@media (max-width: 760px) { .stop .lbl { display: none; } .journey-track { margin-bottom: 32px; } }
+#journeyRange { width: 100%; accent-color: var(--accent); margin-bottom: 20px; }
+.journey-card { --tc: var(--accent); background: var(--surface); border-radius: 24px; padding: clamp(22px, 4vw, 36px); border: 1px solid var(--line); border-top: 6px solid var(--tc); box-shadow: var(--shadow); }
+.journey-card.swap { animation: slideIn .45s ease; }
+.jc-head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+.jc-step { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+.jc-time { font-weight: 700; color: var(--tc); background: color-mix(in srgb, var(--tc) 14%, transparent); padding: 4px 12px; border-radius: 999px; font-size: .88rem; }
+.journey-card h3 { font-size: 2rem; }
+.journey-card p { color: var(--ink-2); }
+.jc-tip { background: var(--surface-2); border-radius: 12px; padding: 12px 16px; margin: 0; font-size: .92rem; }
+.journey-controls { display: flex; gap: 10px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
+
+/* ============ Catálogo ============ */
+.filters { display: grid; gap: 14px; margin-bottom: 18px; }
+.search { display: flex; align-items: center; gap: 10px; background: var(--surface); border: 1.5px solid var(--line); border-radius: 16px; padding: 0 16px; max-width: 520px; transition: border-color .2s; }
+.search:focus-within { border-color: var(--accent); }
+.search svg { width: 20px; height: 20px; stroke: var(--muted); fill: none; stroke-width: 2; flex: none; }
+.search input { flex: 1; min-width: 0; border: 0; background: transparent; padding: 14px 0; font: inherit; color: var(--ink); outline: none; }
+.result-count { font-size: .88rem; color: var(--muted); margin-bottom: 18px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 18px; }
+.card {
+  position: relative; text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 22px; display: flex; flex-direction: column; gap: 6px; overflow: hidden;
+  transition: transform .25s, box-shadow .25s, border-color .25s; animation: pop .45s backwards; animation-delay: var(--d);
+}
+.card::before { content: ""; position: absolute; inset: 0 0 auto; height: 5px; background: var(--tc); }
+.card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: color-mix(in srgb, var(--tc) 50%, var(--line)); }
+@keyframes pop { from { opacity: 0; transform: translateY(14px) scale(.98); } }
+.card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.card-organ { font-size: 1.1rem; }
+.card h3 { font-size: 1.3rem; margin: 0; }
+.card p { font-size: .93rem; color: var(--ink-2); margin: 0; flex: 1; }
+.card-more { font-size: .85rem; font-weight: 600; color: var(--accent); margin-top: 8px; }
+.empty { grid-column: 1 / -1; text-align: center; padding: 48px; color: var(--muted); border: 2px dashed var(--line); border-radius: var(--radius); }
+
+/* ============ Modal ============ */
+.modal {
+  width: min(680px, calc(100% - 32px)); max-height: calc(100vh - 48px); border: 0; padding: 0; border-radius: 28px;
+  background: var(--surface); color: var(--ink); box-shadow: var(--shadow-lg); overflow: auto;
+}
+.modal[open] { animation: modalIn .35s cubic-bezier(.2, .9, .3, 1.2); }
+.modal::backdrop { background: rgba(30, 12, 18, .55); backdrop-filter: blur(4px); }
+@keyframes modalIn { from { opacity: 0; transform: translateY(30px) scale(.96); } }
+.modal-close { position: sticky; float: right; top: 14px; margin: 14px 14px 0 0; width: 40px; height: 40px; border-radius: 50%; border: 0; background: var(--surface-2); font-size: 1.5rem; line-height: 1; z-index: 2; }
+.modal-close:hover { background: var(--accent-soft); color: var(--accent); }
+.m-head { padding: 32px clamp(22px, 5vw, 40px) 20px; background: linear-gradient(160deg, color-mix(in srgb, var(--tc) 22%, var(--surface)), var(--surface) 70%); }
+.m-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.m-head h2 { font-size: clamp(1.7rem, 4vw, 2.3rem); }
+.m-sum { color: var(--ink-2); font-size: 1.05rem; margin: 0; }
+.tabs { display: flex; gap: 4px; padding: 0 clamp(22px, 5vw, 40px); border-bottom: 1px solid var(--line); overflow-x: auto; }
+.tab { background: none; border: 0; padding: 12px 14px; font-weight: 600; font-size: .9rem; color: var(--muted); border-bottom: 3px solid transparent; white-space: nowrap; }
+.tab.on { color: var(--accent); border-color: var(--accent); }
+.tabpanel { padding: 22px clamp(22px, 5vw, 40px) 8px; animation: slideIn .3s ease; }
+.checks { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.checks li { position: relative; padding-left: 30px; }
+.checks li::before { content: ""; position: absolute; left: 0; top: 4px; width: 18px; height: 18px; border-radius: 50%; background: var(--accent-soft); box-shadow: inset 0 0 0 5px var(--accent-soft), inset 0 0 0 9px var(--accent); }
+.m-fact { margin: 16px clamp(22px, 5vw, 40px) 32px; padding: 16px 18px; border-radius: 16px; background: color-mix(in srgb, var(--teal) 12%, var(--surface)); border-left: 4px solid var(--teal); font-size: .95rem; }
+.m-fact strong { color: var(--teal); }
+
+/* ============ Alarmas ============ */
+.alarm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 14px; }
+.alarm {
+  text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 20px; display: grid; gap: 8px; transition: .25s; position: relative;
+}
+.alarm::after { content: "+"; position: absolute; top: 16px; right: 18px; font-size: 1.4rem; color: var(--muted); transition: transform .3s; }
+.alarm.open::after { transform: rotate(45deg); color: var(--accent); }
+.alarm:hover { border-color: var(--accent); }
+.alarm.open { border-color: var(--accent); box-shadow: var(--shadow); }
+.a-icon { font-size: 1.8rem; }
+.a-title { font-weight: 700; padding-right: 20px; }
+.a-why { font-size: .9rem; color: var(--ink-2); max-height: 0; overflow: hidden; opacity: 0; transition: max-height .4s ease, opacity .4s ease; }
+.alarm.open .a-why { max-height: 200px; opacity: 1; }
+
+/* ============ Quiz ============ */
+.quiz { max-width: 720px; background: var(--surface); border: 1px solid var(--line); border-radius: 28px; padding: clamp(24px, 5vw, 48px); box-shadow: var(--shadow); }
+.q-progress { height: 6px; background: var(--line); border-radius: 6px; overflow: hidden; margin-bottom: 18px; }
+.q-progress span { display: block; height: 100%; background: var(--accent); transition: width .4s; }
+.q-count { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+.q-text { font-size: clamp(1.4rem, 3.5vw, 2rem); margin-bottom: 24px; }
+.q-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.q-btn { padding: 18px; border-radius: 16px; border: 2px solid var(--line); background: var(--surface-2); font-weight: 700; font-size: 1.05rem; transition: .2s; }
+.q-btn:hover:not(:disabled) { transform: translateY(-2px); border-color: var(--accent); }
+.q-btn:disabled { cursor: default; }
+.q-btn.correct { background: color-mix(in srgb, var(--teal) 18%, var(--surface)); border-color: var(--teal); }
+.q-btn.wrong { background: color-mix(in srgb, var(--accent) 16%, var(--surface)); border-color: var(--accent); animation: shake .4s; }
+@keyframes shake { 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+.q-feedback { margin-top: 20px; padding: 18px; border-radius: 16px; animation: slideIn .35s ease; }
+.q-feedback.ok { background: color-mix(in srgb, var(--teal) 12%, var(--surface)); }
+.q-feedback.ko { background: var(--accent-soft); }
+.q-feedback .btn { display: flex; margin: 14px 0 0 auto; width: fit-content; }
+.q-result { text-align: center; }
+.ring { --p: 0; width: 140px; height: 140px; border-radius: 50%; margin: 0 auto 20px; display: grid; place-items: center; background: conic-gradient(var(--accent) calc(var(--p) * 1%), var(--line) 0); }
+.ring span { width: 112px; height: 112px; border-radius: 50%; background: var(--surface); display: grid; place-items: center; font: 700 2rem "Fraunces", serif; }
+
+/* ============ Footer ============ */
+.footer { text-align: center; padding: 48px clamp(16px, 5vw, 64px); border-top: 1px solid var(--line); font-size: .9rem; color: var(--ink-2); }
+.footer p { max-width: 720px; margin: 0 auto 10px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; }
+}
+</style>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M10 4c8 0 16 4 16 12s-6 12-12 12-8-4-6-7 6-1 8-4-2-6-6-6-6-3 0-7z' fill='%23e8735a'/></svg>" />
+</head>
+<body>
+  <a class="skip" href="#mapa">Saltar al contenido</a>
+
+  <header class="topbar">
+    <a href="#inicio" class="brand">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M10 4c8 0 16 4 16 12s-6 12-12 12-8-4-6-7 6-1 8-4-2-6-6-6-6-3 0-7z"/></svg>
+      Digestiva
+    </a>
+    <nav class="nav" aria-label="Secciones">
+      <a href="#mapa">Mapa</a>
+      <a href="#recorrido">Recorrido</a>
+      <a href="#enfermedades">Enfermedades</a>
+      <a href="#alarma">Alarmas</a>
+      <a href="#quiz">Quiz</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema claro/oscuro">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+      <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+      <div class="hero-inner">
+        <p class="eyebrow">Guía interactiva de gastroenterología</p>
+        <h1>Un viaje de <em>9 metros</em> por tu sistema digestivo</h1>
+        <p class="lead">Conoce los órganos que transforman la comida en energía y las enfermedades más frecuentes que los afectan, explicadas de forma clara, precisa y breve.</p>
+        <div class="hero-cta">
+          <a href="#mapa" class="btn primary">Explorar el mapa</a>
+          <a href="#enfermedades" class="btn ghost">Ver enfermedades</a>
+        </div>
+        <dl class="stats">
+          <div><dt data-count="7">0</dt><dd>metros de intestino delgado (aprox.)</dd></div>
+          <div><dt data-count="24">0</dt><dd>enfermedades explicadas</dd></div>
+          <div><dt data-count="90" data-suffix="%">0</dt><dd>de los nutrientes se absorben en el intestino delgado</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- MAPA -->
+    <section class="section" id="mapa">
+      <div class="section-head">
+        <p class="eyebrow">01 · Anatomía</p>
+        <h2>Toca un órgano</h2>
+        <p>Selecciona cualquier parte del aparato digestivo para ver qué hace y qué enfermedades lo afectan.</p>
+      </div>
+
+      <div class="map-wrap">
+        <div class="body-card">
+          <svg id="anatomy" viewBox="0 0 300 470" role="img" aria-label="Diagrama del sistema digestivo">
+            <defs>
+              <radialGradient id="torso" cx="50%" cy="40%" r="65%">
+                <stop offset="0%" stop-color="var(--torso-1)"/>
+                <stop offset="100%" stop-color="var(--torso-2)"/>
+              </radialGradient>
+              <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+                <feGaussianBlur stdDeviation="4" result="b"/>
+                <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+
+            <!-- silueta -->
+            <path class="torso" d="M150 4c-22 0-34 16-34 36 0 14 6 24 14 30-6 6-30 8-50 18-22 12-30 34-32 70l-4 110c-2 50 8 110 30 160h152c22-50 32-110 30-160l-4-110c-2-36-10-58-32-70-20-10-44-12-50-18 8-6 14-16 14-30 0-20-12-36-34-36z" fill="url(#torso)"/>
+
+            <!-- Boca / faringe -->
+            <g class="organ" data-organ="boca" tabindex="0" role="button" aria-label="Boca y faringe">
+              <ellipse cx="150" cy="44" rx="14" ry="8" fill="var(--c-boca)"/>
+              <ellipse class="hit" cx="150" cy="44" rx="22" ry="14"/>
+            </g>
+
+            <!-- Esófago -->
+            <g class="organ" data-organ="esofago" tabindex="0" role="button" aria-label="Esófago">
+              <path d="M150 52 C150 90 152 120 168 154" stroke="var(--c-esofago)" stroke-width="10" fill="none" stroke-linecap="round"/>
+              <path class="hit-s" d="M150 52 C150 90 152 120 168 154"/>
+            </g>
+
+            <!-- Hígado -->
+            <g class="organ" data-organ="higado" tabindex="0" role="button" aria-label="Hígado">
+              <path d="M58 168 C70 140 130 130 182 142 C196 146 196 160 184 168 C160 186 130 206 98 214 C74 220 54 200 58 168Z" fill="var(--c-higado)"/>
+            </g>
+
+            <!-- Vesícula -->
+            <g class="organ" data-organ="vesicula" tabindex="0" role="button" aria-label="Vesícula biliar">
+              <ellipse cx="112" cy="214" rx="9" ry="15" transform="rotate(-25 112 214)" fill="var(--c-vesicula)"/>
+              <ellipse class="hit" cx="112" cy="214" rx="14" ry="20"/>
+            </g>
+
+            <!-- Estómago -->
+            <g class="organ" data-organ="estomago" tabindex="0" role="button" aria-label="Estómago">
+              <path d="M164 152 C176 144 192 148 200 158 C238 160 254 196 244 226 C232 258 190 266 162 250 C150 242 154 228 168 228 C190 232 206 218 202 198 C198 182 180 176 166 168Z" fill="var(--c-estomago)"/>
+            </g>
+
+            <!-- Páncreas -->
+            <g class="organ" data-organ="pancreas" tabindex="0" role="button" aria-label="Páncreas">
+              <path d="M126 262 C146 254 196 256 232 248 C246 246 248 260 236 264 C200 274 156 280 130 278 C118 277 116 266 126 262Z" fill="var(--c-pancreas)"/>
+            </g>
+
+            <!-- Intestino grueso -->
+            <g class="organ" data-organ="colon" tabindex="0" role="button" aria-label="Intestino grueso">
+              <path d="M84 398 C76 380 76 320 82 298 C86 288 96 288 120 290 L210 290 C222 290 228 296 228 310 L228 370 C228 392 214 402 192 404 C172 406 160 410 156 420" stroke="var(--c-colon)" stroke-width="20" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M84 398 C76 380 76 320 82 298 C86 288 96 288 120 290 L210 290 C222 290 228 296 228 310 L228 370 C228 392 214 402 192 404 C172 406 160 410 156 420" stroke="var(--colon-haustra)" stroke-width="20" stroke-dasharray="2 9" fill="none"/>
+              <path class="hit-s wide" d="M84 398 C76 380 76 320 82 298 C86 288 96 288 120 290 L210 290 C222 290 228 296 228 310 L228 370 C228 392 214 402 192 404 C172 406 160 410 156 420"/>
+            </g>
+
+            <!-- Apéndice -->
+            <g class="organ" data-organ="apendice" tabindex="0" role="button" aria-label="Apéndice">
+              <path d="M86 404 C86 416 92 424 100 428" stroke="var(--c-apendice)" stroke-width="6" fill="none" stroke-linecap="round"/>
+              <path class="hit-s" d="M86 404 C86 416 92 424 100 428"/>
+            </g>
+
+            <!-- Intestino delgado -->
+            <g class="organ" data-organ="delgado" tabindex="0" role="button" aria-label="Intestino delgado">
+              <rect class="hit" x="100" y="304" width="112" height="86" rx="30"/>
+              <path d="M170 280 C190 300 204 310 186 316 C150 324 112 308 110 324 C108 340 196 324 200 340 C204 356 112 344 112 360 C112 376 194 362 196 378 C198 392 120 388 92 396" stroke="var(--c-delgado)" stroke-width="11" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+
+            <!-- Recto y ano -->
+            <g class="organ" data-organ="recto" tabindex="0" role="button" aria-label="Recto y ano">
+              <path d="M156 420 C152 430 150 440 150 452" stroke="var(--c-recto)" stroke-width="16" fill="none" stroke-linecap="round"/>
+              <path class="hit-s" d="M156 420 C152 430 150 440 150 452"/>
+            </g>
+
+          </svg>
+          <p class="map-hint">Pasa el cursor o toca · usa <kbd>Tab</kbd> para navegar</p>
+        </div>
+
+        <aside class="organ-panel" id="organPanel" aria-live="polite">
+          <div class="panel-empty">
+            <div class="pulse-dot"></div>
+            <h3>Selecciona un órgano</h3>
+            <p>Cada parte del sistema digestivo cumple una función distinta: triturar, transportar, digerir, absorber o eliminar.</p>
+            <div class="organ-chips" id="organChips"></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- RECORRIDO -->
+    <section class="section alt" id="recorrido">
+      <div class="section-head">
+        <p class="eyebrow">02 · Fisiología</p>
+        <h2>El recorrido de un bocado</h2>
+        <p>Desliza para seguir a la comida desde la boca hasta su eliminación. Los tiempos son aproximados y varían entre personas.</p>
+      </div>
+
+      <div class="journey">
+        <div class="journey-figure" id="journeyFigure" aria-hidden="true"></div>
+        <div class="journey-main">
+        <div class="journey-track">
+          <div class="journey-fill" id="journeyFill"></div>
+          <div class="journey-stops" id="journeyStops"></div>
+        </div>
+        <input type="range" id="journeyRange" min="0" max="5" step="1" value="0" aria-label="Etapa del recorrido" />
+        <article class="journey-card" id="journeyCard"></article>
+        <div class="journey-controls">
+          <button class="btn ghost small" id="journeyPrev">← Anterior</button>
+          <button class="btn primary small" id="journeyPlay">▶ Reproducir</button>
+          <button class="btn ghost small" id="journeyNext">Siguiente →</button>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ENFERMEDADES -->
+    <section class="section" id="enfermedades">
+      <div class="section-head">
+        <p class="eyebrow">03 · Patologías</p>
+        <h2>Enfermedades frecuentes</h2>
+        <p>Filtra por órgano o tipo, o busca por nombre o síntoma. Pulsa una tarjeta para ver la ficha completa.</p>
+      </div>
+
+      <div class="filters">
+        <label class="search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+          <input type="search" id="search" placeholder="Busca: reflujo, diarrea, ictericia…" autocomplete="off" />
+        </label>
+        <div class="chip-row" id="organFilter" role="group" aria-label="Filtrar por órgano"></div>
+        <div class="chip-row small" id="typeFilter" role="group" aria-label="Filtrar por tipo"></div>
+      </div>
+
+      <p class="result-count" id="resultCount"></p>
+      <div class="grid" id="diseaseGrid"></div>
+    </section>
+
+    <!-- ALARMA -->
+    <section class="section alt" id="alarma">
+      <div class="section-head">
+        <p class="eyebrow">04 · Cuándo consultar</p>
+        <h2>Señales de alarma</h2>
+        <p>Estos síntomas no siempre indican algo grave, pero <strong>siempre</strong> merecen una evaluación médica. Toca cada una para saber por qué.</p>
+      </div>
+      <div class="alarm-grid" id="alarmGrid"></div>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="section" id="quiz">
+      <div class="section-head">
+        <p class="eyebrow">05 · Pon a prueba lo aprendido</p>
+        <h2>¿Mito o realidad?</h2>
+      </div>
+      <div class="quiz" id="quizBox"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p><strong>Aviso:</strong> contenido divulgativo basado en guías clínicas y fuentes médicas de referencia (OMS, AGA, ACG, NIH/NIDDK). No reemplaza la consulta, el diagnóstico ni el tratamiento de un profesional de la salud.</p>
+    <p class="muted">Digestiva · Hecho con curiosidad por el cuerpo humano</p>
+  </footer>
+
+  <!-- MODAL -->
+  <dialog class="modal" id="modal" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" aria-label="Cerrar">×</button>
+    <div id="modalBody"></div>
+  </dialog>
+
+  <script>
+/* Contenido médico divulgativo. Fuentes de referencia: OMS, NIDDK (NIH),
+   American Gastroenterological Association, American College of Gastroenterology,
+   guías europeas (ESGE/EASL/ECCO). Cifras aproximadas. */
+
+const ORGANS = {
+  boca: {
+    name: 'Boca y faringe',
+    icon: '👄',
+    func: 'Inicia la digestión: los dientes trituran el alimento y la saliva (con amilasa) empieza a descomponer los almidones. La faringe dirige el bolo hacia el esófago.',
+    facts: ['Producimos entre 0,5 y 1,5 L de saliva al día', 'La deglución es voluntaria al inicio y luego refleja'],
+  },
+  esofago: {
+    name: 'Esófago',
+    icon: '🫧',
+    func: 'Tubo muscular de unos 25 cm que lleva el alimento al estómago mediante ondas de contracción (peristalsis). Un esfínter inferior impide que el ácido suba.',
+    facts: ['Mide ~25 cm', 'El bolo lo recorre en 5–10 segundos'],
+  },
+  estomago: {
+    name: 'Estómago',
+    icon: '🫙',
+    func: 'Almacena y mezcla la comida con jugo gástrico (ácido clorhídrico y pepsina) para formar el quimo, que libera poco a poco hacia el duodeno.',
+    facts: ['pH entre 1,5 y 3,5', 'Secreta ~1,5–2 L de jugo gástrico al día'],
+  },
+  higado: {
+    name: 'Hígado',
+    icon: '🟤',
+    func: 'El órgano interno más grande. Produce bilis para digerir grasas, procesa nutrientes, almacena glucógeno, fabrica proteínas y elimina toxinas y fármacos.',
+    facts: ['Pesa ~1,5 kg', 'Puede regenerarse incluso tras perder gran parte de su masa'],
+  },
+  vesicula: {
+    name: 'Vesícula biliar',
+    icon: '🟢',
+    func: 'Pequeño saco bajo el hígado que almacena y concentra la bilis, y la libera al duodeno cuando comemos, sobre todo alimentos grasos.',
+    facts: ['Almacena ~30–50 mL de bilis', 'Se puede vivir sin ella'],
+  },
+  pancreas: {
+    name: 'Páncreas',
+    icon: '🟡',
+    func: 'Glándula doble: libera enzimas digestivas y bicarbonato al intestino (función exocrina) y hormonas como insulina y glucagón a la sangre (función endocrina).',
+    facts: ['Produce ~1,5 L de jugo pancreático al día', 'Mide unos 15 cm'],
+  },
+  delgado: {
+    name: 'Intestino delgado',
+    icon: '🌀',
+    func: 'Duodeno, yeyuno e íleon. Aquí termina la digestión y se absorbe la mayor parte de los nutrientes gracias a millones de vellosidades.',
+    facts: ['Mide ~6–7 m', 'Su superficie de absorción equivale a una pista de bádminton (~30 m²)'],
+  },
+  colon: {
+    name: 'Intestino grueso',
+    icon: '🔶',
+    func: 'Ciego, colon ascendente, transverso, descendente y sigmoide. Absorbe agua y electrolitos, alberga la microbiota y forma las heces.',
+    facts: ['Mide ~1,5 m', 'Alberga billones de bacterias beneficiosas'],
+  },
+  apendice: {
+    name: 'Apéndice',
+    icon: '🪱',
+    func: 'Pequeña prolongación del ciego con tejido linfoide. Podría actuar como reservorio de microbiota, aunque se vive perfectamente sin él.',
+    facts: ['Mide ~5–10 cm'],
+  },
+  recto: {
+    name: 'Recto y ano',
+    icon: '🔻',
+    func: 'El recto almacena las heces hasta la evacuación; los esfínteres anales (interno involuntario y externo voluntario) controlan la continencia.',
+    facts: ['El recto mide ~12–15 cm'],
+  },
+};
+
+const TYPES = {
+  inflamatoria: 'Inflamatoria',
+  infecciosa: 'Infecciosa',
+  autoinmune: 'Autoinmune',
+  funcional: 'Funcional',
+  tumoral: 'Tumoral',
+  metabolica: 'Metabólica',
+  estructural: 'Estructural',
+};
+
+const DISEASES = [
+  // ---------- ESÓFAGO ----------
+  {
+    id: 'erge', name: 'Reflujo gastroesofágico (ERGE)', organs: ['esofago'], type: 'inflamatoria',
+    summary: 'El contenido ácido del estómago sube al esófago con frecuencia y causa molestias o lesiones.',
+    symptoms: ['Ardor detrás del esternón (pirosis)', 'Regurgitación ácida', 'Tos crónica o ronquera', 'Dolor torácico no cardíaco'],
+    causes: ['Esfínter esofágico inferior débil', 'Hernia de hiato', 'Obesidad y embarazo', 'Tabaco, alcohol, comidas copiosas o tardías'],
+    diagnosis: 'Clínico en la mayoría; prueba con IBP. Endoscopia si hay síntomas de alarma; pHmetría en casos dudosos.',
+    treatment: 'Bajar de peso, elevar la cabecera, no cenar tarde. Inhibidores de la bomba de protones (omeprazol, etc.). Cirugía (funduplicatura) en casos seleccionados.',
+    fact: 'Entre el 10 y el 20 % de los adultos en países occidentales tiene síntomas de reflujo cada semana.',
+  },
+  {
+    id: 'barrett', name: 'Esófago de Barrett', organs: ['esofago'], type: 'estructural',
+    summary: 'El revestimiento del esófago inferior se transforma en un tejido similar al intestinal por el reflujo crónico.',
+    symptoms: ['No produce síntomas propios', 'Los del reflujo de larga evolución'],
+    causes: ['ERGE crónica', 'Sexo masculino, >50 años', 'Obesidad abdominal y tabaquismo'],
+    diagnosis: 'Endoscopia con biopsias que confirman metaplasia intestinal.',
+    treatment: 'Control del reflujo con IBP y endoscopias de vigilancia. Si hay displasia, ablación por radiofrecuencia o resección endoscópica.',
+    fact: 'Es la principal lesión precursora del adenocarcinoma de esófago, aunque la mayoría de los pacientes nunca desarrolla cáncer.',
+  },
+  {
+    id: 'acalasia', name: 'Acalasia', organs: ['esofago'], type: 'funcional',
+    summary: 'El esfínter esofágico inferior no se relaja y el esófago pierde su movimiento, por lo que la comida se estanca.',
+    symptoms: ['Dificultad para tragar sólidos y líquidos', 'Regurgitación de comida no digerida', 'Dolor torácico', 'Pérdida de peso'],
+    causes: ['Pérdida de neuronas del plexo mientérico (causa desconocida, posible autoinmune)', 'Enfermedad de Chagas (en Latinoamérica)'],
+    diagnosis: 'Manometría esofágica de alta resolución; esofagograma con bario y endoscopia.',
+    treatment: 'Dilatación neumática, miotomía de Heller laparoscópica o miotomía endoscópica (POEM). Toxina botulínica si no se puede operar.',
+    fact: 'Es poco frecuente: afecta a ~1 de cada 100 000 personas al año.',
+  },
+  {
+    id: 'eoe', name: 'Esofagitis eosinofílica', organs: ['esofago'], type: 'autoinmune',
+    summary: 'Inflamación crónica de tipo alérgico en la que el esófago se llena de eosinófilos.',
+    symptoms: ['Dificultad para tragar', 'Comida que se queda atascada (impactación)', 'Ardor', 'En niños: rechazo del alimento y vómitos'],
+    causes: ['Respuesta inmune a alérgenos alimentarios', 'Asociada a asma, rinitis y dermatitis atópica'],
+    diagnosis: 'Endoscopia con biopsias: ≥15 eosinófilos por campo de gran aumento.',
+    treatment: 'IBP, corticoides tópicos deglutidos (budesonida), dietas de eliminación y fármacos biológicos (dupilumab).',
+    fact: 'Es hoy una de las causas más frecuentes de impactación de alimento en adultos jóvenes.',
+  },
+
+  // ---------- ESTÓMAGO ----------
+  {
+    id: 'gastritis', name: 'Gastritis', organs: ['estomago'], type: 'inflamatoria',
+    summary: 'Inflamación de la mucosa del estómago, aguda o crónica.',
+    symptoms: ['Dolor o ardor en la boca del estómago', 'Náuseas', 'Sensación de llenura', 'Con frecuencia, ninguno'],
+    causes: ['Infección por Helicobacter pylori', 'Antiinflamatorios (AINE)', 'Alcohol', 'Autoinmunidad (gastritis atrófica)'],
+    diagnosis: 'Prueba de H. pylori (aliento con urea o antígeno en heces) y endoscopia con biopsia.',
+    treatment: 'Erradicar H. pylori con antibióticos + IBP, suspender AINE y alcohol, IBP para aliviar.',
+    fact: 'Cerca de la mitad de la población mundial está infectada por H. pylori.',
+  },
+  {
+    id: 'ulcera', name: 'Úlcera péptica', organs: ['estomago', 'delgado'], type: 'inflamatoria',
+    summary: 'Herida abierta en la pared del estómago o del duodeno.',
+    symptoms: ['Dolor quemante en el epigastrio', 'Dolor que mejora o empeora con la comida', 'Heces negras o vómito con sangre (complicación)'],
+    causes: ['Helicobacter pylori', 'AINE y aspirina', 'Tabaco'],
+    diagnosis: 'Endoscopia digestiva alta y búsqueda de H. pylori.',
+    treatment: 'IBP durante semanas y erradicación de H. pylori. Endoscopia o cirugía si sangra o se perfora.',
+    fact: 'Warren y Marshall ganaron el Nobel de Medicina 2005 al demostrar que una bacteria, y no el estrés, causa la mayoría de las úlceras.',
+  },
+  {
+    id: 'cancer-gastrico', name: 'Cáncer gástrico', organs: ['estomago'], type: 'tumoral',
+    summary: 'Tumor maligno, casi siempre adenocarcinoma, que se origina en la mucosa del estómago.',
+    symptoms: ['Saciedad precoz y pérdida de apetito', 'Pérdida de peso', 'Anemia o sangrado', 'Dolor abdominal persistente'],
+    causes: ['Infección crónica por H. pylori', 'Dieta rica en sal, ahumados y encurtidos', 'Tabaco', 'Antecedentes familiares'],
+    diagnosis: 'Endoscopia con biopsia; TC para estadificar.',
+    treatment: 'Resección endoscópica en estadios muy precoces; cirugía (gastrectomía) y quimioterapia perioperatoria.',
+    fact: 'Erradicar H. pylori reduce el riesgo de desarrollarlo.',
+  },
+  {
+    id: 'gastroenteritis', name: 'Gastroenteritis aguda', organs: ['estomago', 'delgado'], type: 'infecciosa',
+    summary: 'Infección del estómago e intestino que causa diarrea y vómitos durante pocos días.',
+    symptoms: ['Diarrea acuosa', 'Vómitos y náuseas', 'Cólicos', 'Fiebre leve'],
+    causes: ['Virus (norovirus, rotavirus)', 'Bacterias (Salmonella, Campylobacter, E. coli)', 'Agua o alimentos contaminados'],
+    diagnosis: 'Clínico. Coprocultivo si hay sangre, fiebre alta o dura más de 7 días.',
+    treatment: 'Rehidratación oral (lo más importante). Antibióticos solo en casos concretos.',
+    fact: 'El norovirus es la causa más común de gastroenteritis en el mundo. El lavado de manos con agua y jabón es más eficaz que el gel contra él.',
+  },
+
+  // ---------- HÍGADO ----------
+  {
+    id: 'higado-graso', name: 'Hígado graso (MASLD)', organs: ['higado'], type: 'metabolica',
+    summary: 'Acumulación de grasa en el hígado asociada a sobrepeso, diabetes o colesterol alto, sin consumo excesivo de alcohol.',
+    symptoms: ['Casi siempre asintomático', 'Cansancio', 'Molestia en el lado derecho del abdomen'],
+    causes: ['Obesidad abdominal', 'Diabetes tipo 2 y resistencia a la insulina', 'Colesterol/triglicéridos altos', 'Sedentarismo'],
+    diagnosis: 'Ecografía, análisis de sangre, índice FIB-4 y elastografía (FibroScan) para medir la fibrosis.',
+    treatment: 'Perder un 7–10 % del peso, ejercicio y dieta mediterránea. En fibrosis avanzada existen fármacos específicos (p. ej., resmetirom).',
+    fact: 'Afecta aproximadamente a 1 de cada 3 adultos en el mundo; es la enfermedad hepática más frecuente.',
+  },
+  {
+    id: 'hepatitis', name: 'Hepatitis virales', organs: ['higado'], type: 'infecciosa',
+    summary: 'Inflamación del hígado causada por virus (A, B, C, D y E). B y C pueden volverse crónicas.',
+    symptoms: ['Cansancio y náuseas', 'Ictericia (piel y ojos amarillos)', 'Orina oscura', 'Muchas veces silenciosa durante años'],
+    causes: ['A y E: agua o alimentos contaminados', 'B: sangre, vía sexual y de madre a hijo', 'C: sangre (agujas compartidas, transfusiones antiguas)'],
+    diagnosis: 'Serologías y carga viral en sangre; elastografía para valorar daño.',
+    treatment: 'A y E suelen curarse solas. B crónica: antivirales que la controlan. C: antivirales de acción directa que la curan en >95 % en 8–12 semanas.',
+    fact: 'Existen vacunas muy eficaces contra la hepatitis A y B.',
+  },
+  {
+    id: 'cirrosis', name: 'Cirrosis', organs: ['higado'], type: 'estructural',
+    summary: 'Fase avanzada de cicatrización (fibrosis) del hígado que altera su estructura y función.',
+    symptoms: ['Líquido en el abdomen (ascitis)', 'Ictericia', 'Sangrado por várices', 'Confusión (encefalopatía)', 'Puede no dar síntomas al inicio'],
+    causes: ['Consumo excesivo de alcohol', 'Hepatitis B y C crónicas', 'Hígado graso metabólico'],
+    diagnosis: 'Análisis, ecografía, elastografía y, a veces, biopsia.',
+    treatment: 'Tratar la causa (dejar el alcohol, antivirales), controlar complicaciones y vigilar cáncer de hígado. Trasplante hepático en fases terminales.',
+    fact: 'Detectada a tiempo, la fibrosis puede frenarse e incluso revertir parcialmente.',
+  },
+
+  // ---------- VESÍCULA ----------
+  {
+    id: 'calculos', name: 'Cálculos biliares y colecistitis', organs: ['vesicula'], type: 'estructural',
+    summary: 'Piedras (casi siempre de colesterol) en la vesícula; si la obstruyen, se inflama (colecistitis).',
+    symptoms: ['Dolor intenso en la parte superior derecha del abdomen tras comidas grasas (cólico biliar)', 'Dolor irradiado a espalda u hombro', 'Fiebre si hay colecistitis', 'La mayoría no da síntomas'],
+    causes: ['Sexo femenino y edad >40', 'Obesidad, embarazo', 'Pérdida de peso muy rápida', 'Antecedentes familiares'],
+    diagnosis: 'Ecografía abdominal.',
+    treatment: 'Sin síntomas: solo vigilancia. Con síntomas: extirpación de la vesícula por laparoscopia (colecistectomía).',
+    fact: 'Entre el 10 y el 15 % de los adultos tiene cálculos, pero solo una minoría tendrá síntomas.',
+  },
+
+  // ---------- PÁNCREAS ----------
+  {
+    id: 'pancreatitis', name: 'Pancreatitis aguda', organs: ['pancreas'], type: 'inflamatoria',
+    summary: 'Inflamación súbita del páncreas en la que sus propias enzimas lo dañan.',
+    symptoms: ['Dolor muy intenso en la parte alta del abdomen que se irradia a la espalda', 'Náuseas y vómitos', 'Fiebre, taquicardia'],
+    causes: ['Cálculos biliares (la causa más frecuente)', 'Alcohol', 'Triglicéridos muy altos', 'Algunos fármacos, CPRE'],
+    diagnosis: 'Dos de tres: dolor típico, lipasa en sangre >3 veces lo normal, imagen compatible.',
+    treatment: 'Hospitalización: líquidos intravenosos, analgesia y nutrición temprana. Tratar la causa (p. ej., quitar la vesícula).',
+    fact: 'Alrededor del 80 % de los casos son leves y se resuelven en una semana.',
+  },
+  {
+    id: 'cancer-pancreas', name: 'Cáncer de páncreas', organs: ['pancreas'], type: 'tumoral',
+    summary: 'Tumor maligno, sobre todo adenocarcinoma ductal, de diagnóstico habitualmente tardío.',
+    symptoms: ['Ictericia sin dolor', 'Pérdida de peso inexplicable', 'Dolor abdominal o en la espalda', 'Diabetes de inicio reciente'],
+    causes: ['Tabaco (principal factor modificable)', 'Obesidad y diabetes', 'Pancreatitis crónica', 'Mutaciones hereditarias (BRCA, etc.)'],
+    diagnosis: 'TC con protocolo pancreático, ecoendoscopia con biopsia, marcador CA 19-9.',
+    treatment: 'Cirugía (p. ej., Whipple) si es resecable, quimioterapia y radioterapia.',
+    fact: 'Solo ~1 de cada 5 tumores es operable al diagnóstico; dejar de fumar es la mejor prevención.',
+  },
+
+  // ---------- INTESTINO DELGADO ----------
+  {
+    id: 'celiaca', name: 'Enfermedad celíaca', organs: ['delgado'], type: 'autoinmune',
+    summary: 'Enfermedad autoinmune en la que el gluten daña las vellosidades del intestino delgado en personas predispuestas.',
+    symptoms: ['Diarrea, distensión, gases', 'Anemia por falta de hierro', 'Cansancio, osteoporosis', 'Muchos casos con síntomas atípicos o ninguno'],
+    causes: ['Predisposición genética (HLA-DQ2/DQ8)', 'Consumo de gluten (trigo, cebada, centeno)'],
+    diagnosis: 'Anticuerpos antitransglutaminasa IgA (mientras se come gluten) y biopsia duodenal.',
+    treatment: 'Dieta estricta sin gluten de por vida: las vellosidades se recuperan.',
+    fact: 'Afecta a ~1 % de la población y la mayoría no está diagnosticada.',
+  },
+  {
+    id: 'lactosa', name: 'Intolerancia a la lactosa', organs: ['delgado'], type: 'funcional',
+    summary: 'Falta de lactasa, la enzima que digiere el azúcar de la leche; la lactosa fermenta en el colon.',
+    symptoms: ['Gases y distensión', 'Diarrea', 'Cólicos 30 min – 2 h después de tomar lácteos'],
+    causes: ['Descenso genético de lactasa tras la infancia (lo más común)', 'Daño intestinal (gastroenteritis, celiaquía)'],
+    diagnosis: 'Test de hidrógeno en aliento o prueba de retirada de lácteos.',
+    treatment: 'Reducir lactosa a la dosis tolerada, lácteos sin lactosa, yogur y quesos curados, suplementos de lactasa.',
+    fact: 'Alrededor del 65 % de los adultos del mundo pierde parte de su capacidad de digerir lactosa. No es una alergia.',
+  },
+  {
+    id: 'crohn', name: 'Enfermedad de Crohn', organs: ['delgado', 'colon'], type: 'autoinmune',
+    summary: 'Enfermedad inflamatoria intestinal crónica que puede afectar cualquier tramo, de la boca al ano, en parches y con inflamación profunda.',
+    symptoms: ['Diarrea crónica', 'Dolor abdominal (a menudo en la parte inferior derecha)', 'Pérdida de peso, fiebre', 'Fístulas y abscesos perianales'],
+    causes: ['Interacción entre genética, microbiota y sistema inmune', 'El tabaco la empeora'],
+    diagnosis: 'Ileocolonoscopia con biopsias, calprotectina fecal, resonancia magnética intestinal.',
+    treatment: 'Corticoides en brotes, inmunomoduladores y fármacos biológicos (anti-TNF, anti-IL-12/23, anti-integrinas). Cirugía en complicaciones.',
+    fact: 'Suele diagnosticarse entre los 15 y 35 años.',
+  },
+
+  // ---------- INTESTINO GRUESO ----------
+  {
+    id: 'colitis-ulcerosa', name: 'Colitis ulcerosa', organs: ['colon', 'recto'], type: 'autoinmune',
+    summary: 'Enfermedad inflamatoria intestinal crónica que afecta de forma continua la mucosa del colon, empezando siempre por el recto.',
+    symptoms: ['Diarrea con sangre y moco', 'Urgencia para defecar', 'Sensación de evacuación incompleta (tenesmo)', 'Dolor tipo cólico'],
+    causes: ['Respuesta inmune anómala frente a la microbiota en personas predispuestas'],
+    diagnosis: 'Colonoscopia con biopsias; calprotectina fecal.',
+    treatment: 'Mesalazina (5-ASA), corticoides en brotes, biológicos e inhibidores de JAK. Colectomía si falla el tratamiento.',
+    fact: 'A diferencia del Crohn, solo afecta al colon y la inflamación es superficial y continua.',
+  },
+  {
+    id: 'sii', name: 'Síndrome de intestino irritable', organs: ['colon', 'delgado'], type: 'funcional',
+    summary: 'Trastorno de la interacción intestino-cerebro con dolor abdominal y cambios en el ritmo intestinal, sin daño visible.',
+    symptoms: ['Dolor abdominal relacionado con la defecación', 'Diarrea, estreñimiento o alternancia', 'Hinchazón y gases'],
+    causes: ['Hipersensibilidad visceral', 'Alteraciones de la motilidad y la microbiota', 'Estrés; puede aparecer tras una gastroenteritis'],
+    diagnosis: 'Criterios de Roma IV, descartando enfermedades orgánicas.',
+    treatment: 'Dieta baja en FODMAP, fibra soluble (psyllium), antiespasmódicos, terapias psicológicas y fármacos según el subtipo.',
+    fact: 'Afecta a ~5–10 % de la población; no aumenta el riesgo de cáncer.',
+  },
+  {
+    id: 'diverticulitis', name: 'Diverticulitis', organs: ['colon'], type: 'inflamatoria',
+    summary: 'Inflamación de los divertículos, pequeñas bolsas que se forman en la pared del colon.',
+    symptoms: ['Dolor en la parte inferior izquierda del abdomen', 'Fiebre', 'Náuseas, cambios en el ritmo intestinal'],
+    causes: ['Edad (>60 % de mayores de 60 años tiene divertículos)', 'Dieta pobre en fibra, obesidad, sedentarismo'],
+    diagnosis: 'Tomografía (TC) de abdomen.',
+    treatment: 'Casos leves: dieta y analgesia, los antibióticos no siempre son necesarios. Complicados (absceso, perforación): hospital, drenaje o cirugía.',
+    fact: 'Comer frutos secos y semillas NO aumenta el riesgo, como se creía antes.',
+  },
+  {
+    id: 'cancer-colorrectal', name: 'Cáncer colorrectal', organs: ['colon', 'recto'], type: 'tumoral',
+    summary: 'Tumor maligno del colon o del recto que casi siempre se origina a partir de un pólipo benigno durante años.',
+    symptoms: ['Sangre en las heces', 'Cambio persistente del ritmo intestinal', 'Anemia y cansancio', 'Pérdida de peso'],
+    causes: ['Edad >45–50 años', 'Antecedentes familiares o síndromes hereditarios', 'Carnes procesadas, alcohol, tabaco, obesidad, sedentarismo', 'Enfermedad inflamatoria intestinal'],
+    diagnosis: 'Colonoscopia con biopsia. Cribado con test de sangre oculta (FIT) o colonoscopia desde los 45–50 años.',
+    treatment: 'Extirpación de pólipos por colonoscopia; cirugía, quimioterapia, radioterapia (recto) y terapias dirigidas.',
+    fact: 'Es uno de los cánceres más prevenibles: quitar los pólipos evita que se malignicen.',
+  },
+  {
+    id: 'estrenimiento', name: 'Estreñimiento crónico', organs: ['colon'], type: 'funcional',
+    summary: 'Evacuaciones poco frecuentes, difíciles o incompletas durante al menos tres meses.',
+    symptoms: ['Menos de 3 deposiciones por semana', 'Heces duras', 'Esfuerzo excesivo', 'Sensación de evacuación incompleta'],
+    causes: ['Poca fibra o líquidos', 'Sedentarismo', 'Fármacos (opioides, hierro)', 'Hipotiroidismo, disfunción del suelo pélvico'],
+    diagnosis: 'Clínico (criterios de Roma IV). Colonoscopia si hay señales de alarma.',
+    treatment: 'Fibra (25–30 g/día), agua, actividad física, laxantes osmóticos (polietilenglicol) y biofeedback si hay disinergia.',
+    fact: 'Apoyar los pies en un taburete al defecar endereza el ángulo anorrectal y facilita la evacuación.',
+  },
+
+  // ---------- APÉNDICE ----------
+  {
+    id: 'apendicitis', name: 'Apendicitis', organs: ['apendice'], type: 'inflamatoria',
+    summary: 'Inflamación aguda del apéndice, generalmente por obstrucción. Es una urgencia quirúrgica.',
+    symptoms: ['Dolor que empieza alrededor del ombligo y se desplaza a la parte inferior derecha', 'Pérdida de apetito', 'Náuseas, fiebre'],
+    causes: ['Obstrucción por heces endurecidas (fecalito) o tejido linfoide'],
+    diagnosis: 'Exploración física, análisis y ecografía o TC.',
+    treatment: 'Apendicectomía (casi siempre laparoscópica). En casos no complicados seleccionados, antibióticos.',
+    fact: 'Es la urgencia quirúrgica abdominal más común; es más frecuente entre los 10 y 30 años.',
+  },
+
+  // ---------- RECTO / ANO ----------
+  {
+    id: 'hemorroides', name: 'Hemorroides', organs: ['recto'], type: 'estructural',
+    summary: 'Las almohadillas vasculares normales del canal anal se dilatan e inflaman.',
+    symptoms: ['Sangre roja brillante al defecar', 'Picor y molestia', 'Bulto que sale (prolapso)', 'Dolor intenso si se trombosan'],
+    causes: ['Estreñimiento y esfuerzo al defecar', 'Embarazo', 'Pasar mucho tiempo sentado en el inodoro'],
+    diagnosis: 'Exploración proctológica; colonoscopia si hay dudas sobre el origen del sangrado.',
+    treatment: 'Fibra, agua, baños de asiento, pomadas. Ligadura con bandas elásticas o cirugía en casos persistentes.',
+    fact: 'Todos tenemos hemorroides: solo son un problema cuando dan síntomas.',
+  },
+  {
+    id: 'fisura', name: 'Fisura anal', organs: ['recto'], type: 'estructural',
+    summary: 'Pequeño desgarro en el revestimiento del canal anal.',
+    symptoms: ['Dolor agudo e intenso al defecar que dura minutos u horas', 'Pequeño sangrado rojo en el papel'],
+    causes: ['Heces duras o diarrea', 'Espasmo del esfínter anal interno'],
+    diagnosis: 'Inspección visual de la zona anal.',
+    treatment: 'Fibra y agua, baños de asiento, pomadas de nitroglicerina o diltiazem, toxina botulínica o esfinterotomía si no cura.',
+    fact: 'La mayoría de las fisuras agudas cura en 4–6 semanas con medidas sencillas.',
+  },
+];
+
+const JOURNEY = [
+  { organ: 'boca', title: 'Boca', time: '5–30 segundos', text: 'Los dientes trituran el alimento y la saliva lo humedece. La amilasa salival empieza a romper los almidones. La lengua forma el bolo y lo empuja hacia la faringe.', tip: 'Masticar bien facilita todo lo que viene después.' },
+  { organ: 'esofago', title: 'Esófago', time: '5–10 segundos', text: 'Ondas de contracción (peristalsis) empujan el bolo hacia abajo, incluso si estás cabeza abajo. El esfínter inferior se abre para dejarlo pasar y se cierra para que el ácido no suba.', tip: 'Acostarse justo después de comer favorece el reflujo.' },
+  { organ: 'estomago', title: 'Estómago', time: '2–5 horas', text: 'El ácido clorhídrico y la pepsina empiezan a digerir las proteínas. El estómago mezcla todo hasta formar el quimo y lo libera de a poco al duodeno.', tip: 'Las comidas grasas tardan más en salir del estómago.' },
+  { organ: 'delgado', title: 'Intestino delgado', time: '2–6 horas', text: 'La bilis del hígado y las enzimas del páncreas terminan la digestión. Las vellosidades absorben azúcares, aminoácidos, grasas, vitaminas y minerales hacia la sangre.', tip: 'Aquí se absorbe ~90 % de los nutrientes.' },
+  { organ: 'colon', title: 'Intestino grueso', time: '10–59 horas', text: 'Se absorben agua y sales. La microbiota fermenta la fibra y produce ácidos grasos de cadena corta y algunas vitaminas (K, B). Se forman las heces.', tip: 'La fibra es el alimento de tus bacterias buenas.' },
+  { organ: 'recto', title: 'Recto y ano', time: 'Hasta la evacuación', text: 'El recto se distiende y envía la señal de ganas de defecar. Los esfínteres permiten elegir el momento adecuado para evacuar.', tip: 'Ignorar las ganas de forma repetida favorece el estreñimiento.' },
+];
+
+const ALARMS = [
+  { icon: '🩸', title: 'Sangre en heces o heces negras', why: 'Las heces negras y pegajosas (melena) sugieren sangrado alto (úlcera, várices); la sangre roja, sangrado bajo. Puede ser desde hemorroides hasta pólipos o cáncer.' },
+  { icon: '🤮', title: 'Vómito con sangre o "posos de café"', why: 'Indica sangrado del tubo digestivo superior. Es una urgencia médica.' },
+  { icon: '⚖️', title: 'Pérdida de peso sin explicación', why: 'Perder más del 5 % del peso en 6–12 meses sin proponérselo obliga a descartar malabsorción, enfermedad inflamatoria o tumores.' },
+  { icon: '🍞', title: 'Dificultad progresiva para tragar', why: 'La disfagia que empeora (primero sólidos, luego líquidos) puede deberse a una estenosis o a un tumor de esófago.' },
+  { icon: '⚡', title: 'Dolor abdominal súbito e intenso', why: 'Puede indicar apendicitis, pancreatitis, perforación u obstrucción. Acude a urgencias.' },
+  { icon: '💛', title: 'Piel u ojos amarillos', why: 'La ictericia refleja un problema del hígado o una obstrucción de la vía biliar (cálculos o tumor).' },
+  { icon: '🔄', title: 'Cambio persistente del ritmo intestinal', why: 'Sobre todo después de los 45–50 años, si dura más de unas semanas debe valorarse con colonoscopia.' },
+  { icon: '🌡️', title: 'Fiebre con dolor abdominal', why: 'Sugiere un proceso infeccioso o inflamatorio como colecistitis, diverticulitis o apendicitis.' },
+];
+
+const QUIZ = [
+  { q: 'La mayoría de las úlceras de estómago se deben al estrés.', a: false, e: 'Las causas principales son la bacteria Helicobacter pylori y los antiinflamatorios (AINE). El estrés puede empeorar síntomas, pero no es la causa habitual.' },
+  { q: 'Una colonoscopia puede prevenir el cáncer colorrectal.', a: true, e: 'Durante la colonoscopia se extirpan pólipos antes de que se transformen en cáncer.' },
+  { q: 'La enfermedad celíaca es una alergia al gluten.', a: false, e: 'Es una enfermedad autoinmune: el gluten activa una respuesta inmune que daña las vellosidades del intestino delgado.' },
+  { q: 'Se puede tener hígado graso sin beber alcohol.', a: true, e: 'El hígado graso metabólico (MASLD) se asocia a obesidad, diabetes y colesterol alto, y afecta a ~1 de cada 3 adultos.' },
+  { q: 'La hepatitis C hoy tiene cura.', a: true, e: 'Los antivirales de acción directa la curan en más del 95 % de los casos en 8–12 semanas.' },
+  { q: 'Comer comida picante causa úlceras.', a: false, e: 'El picante puede irritar y empeorar síntomas en algunas personas, pero no provoca úlceras.' },
+  { q: 'La intolerancia a la lactosa obliga a eliminar todos los lácteos.', a: false, e: 'La mayoría tolera pequeñas cantidades, yogur y quesos curados. Además existen lácteos sin lactosa y suplementos de lactasa.' },
+  { q: 'Todas las personas tienen hemorroides.', a: true, e: 'Son estructuras vasculares normales del canal anal. Solo hablamos de "enfermedad hemorroidal" cuando dan síntomas.' },
+];
+
+(() => {
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- Tema ---------- */
+  const root = document.documentElement;
+  try {
+    const saved = localStorage.getItem('theme');
+    if (saved) root.dataset.theme = saved;
+  } catch (e) {}
+  $('#themeToggle').addEventListener('click', () => {
+    const isDark = root.dataset.theme
+      ? root.dataset.theme === 'dark'
+      : matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme = isDark ? 'light' : 'dark';
+    try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
+  });
+
+  /* ---------- Contadores del hero ---------- */
+  $('.stats div:nth-child(2) dt').dataset.count = DISEASES.length;
+  const counters = $$('[data-count]');
+  const runCounter = (el) => {
+    const target = +el.dataset.count, suffix = el.dataset.suffix || '';
+    if (reduceMotion) { el.textContent = target + suffix; return; }
+    const t0 = performance.now(), dur = 1200;
+    const step = (t) => {
+      const p = Math.min(1, (t - t0) / dur);
+      el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { runCounter(e.target); io.unobserve(e.target); } });
+  });
+  counters.forEach((c) => io.observe(c));
+
+  /* ---------- Helpers ---------- */
+  const diseasesOf = (organ) => DISEASES.filter((d) => d.organs.includes(organ));
+  const organTag = (o) => `<span class="tag" style="--tc: var(--c-${o})">${ORGANS[o].name}</span>`;
+  const typeTag = (t) => `<span class="tag type t-${t}">${TYPES[t]}</span>`;
+
+  /* ---------- Mapa anatómico ---------- */
+  const panel = $('#organPanel');
+  const organEls = $$('#anatomy .organ');
+  const emptyPanelHTML = panel.innerHTML;
+  let activeOrgan = null;
+
+  const setHighlight = (organ) => {
+    organEls.forEach((g) => {
+      g.classList.toggle('active', g.dataset.organ === organ);
+      g.classList.toggle('dim', !!organ && g.dataset.organ !== organ);
+    });
+  };
+
+  const renderChips = () => {
+    $('#organChips').innerHTML = Object.entries(ORGANS)
+      .map(([k, o]) => `<button class="chip" data-organ="${k}" style="--tc: var(--c-${k})">${o.name}</button>`)
+      .join('');
+    $$('#organChips .chip').forEach((b) => b.addEventListener('click', () => selectOrgan(b.dataset.organ)));
+  };
+
+  const selectOrgan = (key) => {
+    if (activeOrgan === key) { key = null; }
+    activeOrgan = key;
+    setHighlight(key);
+    if (!key) { panel.innerHTML = emptyPanelHTML; renderChips(); return; }
+    const o = ORGANS[key];
+    const list = diseasesOf(key);
+    panel.innerHTML = `
+      <div class="panel-content" style="--tc: var(--c-${key})">
+        <button class="panel-back" aria-label="Volver">← Todos los órganos</button>
+        <div class="panel-title"><span class="organ-dot"></span><h3>${o.name}</h3></div>
+        <p>${o.func}</p>
+        <ul class="facts">${o.facts.map((f) => `<li>${f}</li>`).join('')}</ul>
+        <h4>${list.length ? `Enfermedades (${list.length})` : 'Enfermedades'}</h4>
+        ${list.length
+          ? `<div class="mini-list">${list.map((d) => `
+              <button class="mini" data-id="${d.id}">
+                <span>${d.name}</span>${typeTag(d.type)}
+              </button>`).join('')}</div>`
+          : `<p class="muted">Las enfermedades bucales son terreno de la odontología. Pero ojo: el reflujo crónico puede erosionar el esmalte dental.</p>`}
+      </div>`;
+    $('.panel-back', panel).addEventListener('click', () => selectOrgan(null));
+    $$('.mini', panel).forEach((b) => b.addEventListener('click', () => openDisease(b.dataset.id)));
+  };
+
+  organEls.forEach((g) => {
+    g.addEventListener('click', () => selectOrgan(g.dataset.organ));
+    g.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectOrgan(g.dataset.organ); }
+    });
+    g.addEventListener('mouseenter', () => { if (!activeOrgan) setHighlight(g.dataset.organ); });
+    g.addEventListener('mouseleave', () => { if (!activeOrgan) setHighlight(null); });
+  });
+  renderChips();
+
+  /* ---------- Recorrido ---------- */
+  const range = $('#journeyRange');
+  const card = $('#journeyCard');
+  const fill = $('#journeyFill');
+  const stopsEl = $('#journeyStops');
+  stopsEl.innerHTML = JOURNEY.map((s, i) =>
+    `<button class="stop" data-i="${i}" style="--tc: var(--c-${s.organ})"><span class="dot"></span><span class="lbl">${s.title}</span></button>`
+  ).join('');
+  const stops = $$('.stop', stopsEl);
+  stops.forEach((b) => b.addEventListener('click', () => setStage(+b.dataset.i)));
+
+  // Mini diagrama clonado para el recorrido
+  const fig = $('#anatomy').cloneNode(true);
+  fig.removeAttribute('id');
+  fig.removeAttribute('role');
+  $$('.organ', fig).forEach((g) => { g.removeAttribute('tabindex'); g.removeAttribute('role'); });
+  const bolus = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  bolus.setAttribute('r', 7);
+  bolus.setAttribute('class', 'bolus');
+  fig.appendChild(bolus);
+  $('#journeyFigure').appendChild(fig);
+  const figOrgans = $$('.organ', fig);
+  const stagePoints = [[150, 44], [156, 110], [214, 205], [150, 340], [228, 340], [152, 446]];
+
+  let stage = 0;
+  const setStage = (i) => {
+    stage = Math.max(0, Math.min(JOURNEY.length - 1, i));
+    range.value = stage;
+    const s = JOURNEY[stage];
+    fill.style.width = (stage / (JOURNEY.length - 1)) * 100 + '%';
+    stops.forEach((b, j) => { b.classList.toggle('done', j <= stage); b.classList.toggle('current', j === stage); });
+    card.style.setProperty('--tc', `var(--c-${s.organ})`);
+    card.innerHTML = `
+      <div class="jc-head">
+        <span class="jc-step">Etapa ${stage + 1} de ${JOURNEY.length}</span>
+        <span class="jc-time">⏱ ${s.time}</span>
+      </div>
+      <h3>${s.title}</h3>
+      <p>${s.text}</p>
+      <p class="jc-tip">💡 ${s.tip}</p>`;
+    card.classList.remove('swap'); void card.offsetWidth; card.classList.add('swap');
+    const [x, y] = stagePoints[stage];
+    bolus.style.transform = `translate(${x}px, ${y}px)`;
+    figOrgans.forEach((g) => {
+      g.classList.toggle('active', g.dataset.organ === s.organ);
+      g.classList.toggle('dim', g.dataset.organ !== s.organ);
+    });
+  };
+  range.addEventListener('input', () => setStage(+range.value));
+  $('#journeyPrev').addEventListener('click', () => { stopPlay(); setStage(stage - 1); });
+  $('#journeyNext').addEventListener('click', () => { stopPlay(); setStage(stage + 1); });
+
+  let timer = null;
+  const playBtn = $('#journeyPlay');
+  const stopPlay = () => { clearInterval(timer); timer = null; playBtn.textContent = '▶ Reproducir'; };
+  playBtn.addEventListener('click', () => {
+    if (timer) return stopPlay();
+    if (stage === JOURNEY.length - 1) setStage(0);
+    playBtn.textContent = '❚❚ Pausa';
+    timer = setInterval(() => {
+      if (stage >= JOURNEY.length - 1) return stopPlay();
+      setStage(stage + 1);
+    }, 2600);
+  });
+
+  setStage(0);
+
+  /* ---------- Catálogo ---------- */
+  const grid = $('#diseaseGrid');
+  const search = $('#search');
+  let fOrgan = 'all', fType = 'all';
+
+  const organKeysWithDiseases = Object.keys(ORGANS).filter((k) => diseasesOf(k).length);
+  $('#organFilter').innerHTML =
+    `<button class="chip on" data-v="all">Todos</button>` +
+    organKeysWithDiseases.map((k) => `<button class="chip" data-v="${k}" style="--tc: var(--c-${k})">${ORGANS[k].name}</button>`).join('');
+  $('#typeFilter').innerHTML =
+    `<button class="chip on" data-v="all">Todos los tipos</button>` +
+    Object.entries(TYPES).map(([k, v]) => `<button class="chip" data-v="${k}">${v}</button>`).join('');
+
+  const bindFilter = (sel, set) => {
+    $$(sel + ' .chip').forEach((b) => b.addEventListener('click', () => {
+      $$(sel + ' .chip').forEach((x) => x.classList.toggle('on', x === b));
+      set(b.dataset.v); renderGrid();
+    }));
+  };
+  bindFilter('#organFilter', (v) => (fOrgan = v));
+  bindFilter('#typeFilter', (v) => (fType = v));
+
+  const norm = (s) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+
+  const renderGrid = () => {
+    const q = norm(search.value.trim());
+    const list = DISEASES.filter((d) =>
+      (fOrgan === 'all' || d.organs.includes(fOrgan)) &&
+      (fType === 'all' || d.type === fType) &&
+      (!q || norm([d.name, d.summary, ...d.symptoms, ...d.causes].join(' ')).includes(q))
+    );
+    $('#resultCount').textContent = `${list.length} ${list.length === 1 ? 'enfermedad' : 'enfermedades'}`;
+    grid.innerHTML = list.length
+      ? list.map((d, i) => `
+        <button class="card" data-id="${d.id}" style="--tc: var(--c-${d.organs[0]}); --d:${i * 30}ms">
+          <div class="card-top">${typeTag(d.type)}<span class="card-organ">${d.organs.map((o) => ORGANS[o].icon).join(' ')}</span></div>
+          <h3>${d.name}</h3>
+          <p>${d.summary}</p>
+          <span class="card-more">Ver ficha →</span>
+        </button>`).join('')
+      : `<div class="empty">No encontramos coincidencias. Prueba con otro término 🔍</div>`;
+    $$('.card', grid).forEach((c) => c.addEventListener('click', () => openDisease(c.dataset.id)));
+  };
+  search.addEventListener('input', renderGrid);
+  renderGrid();
+
+  /* ---------- Modal ---------- */
+  const modal = $('#modal');
+  const openDisease = (id) => {
+    const d = DISEASES.find((x) => x.id === id);
+    const tabs = [
+      ['sintomas', 'Síntomas', `<ul class="checks">${d.symptoms.map((s) => `<li>${s}</li>`).join('')}</ul>`],
+      ['causas', 'Causas y riesgo', `<ul class="checks">${d.causes.map((s) => `<li>${s}</li>`).join('')}</ul>`],
+      ['diagnostico', 'Diagnóstico', `<p>${d.diagnosis}</p>`],
+      ['tratamiento', 'Tratamiento', `<p>${d.treatment}</p>`],
+    ];
+    $('#modalBody').innerHTML = `
+      <div class="m-head" style="--tc: var(--c-${d.organs[0]})">
+        <div class="m-tags">${typeTag(d.type)}${d.organs.map(organTag).join('')}</div>
+        <h2 id="modalTitle">${d.name}</h2>
+        <p class="m-sum">${d.summary}</p>
+      </div>
+      <div class="tabs" role="tablist">
+        ${tabs.map(([k, l], i) => `<button role="tab" class="tab ${i ? '' : 'on'}" data-t="${k}" aria-selected="${!i}">${l}</button>`).join('')}
+      </div>
+      ${tabs.map(([k, , html], i) => `<div class="tabpanel" data-p="${k}" ${i ? 'hidden' : ''}>${html}</div>`).join('')}
+      <div class="m-fact"><strong>¿Sabías que…?</strong> ${d.fact}</div>`;
+    $$('.tab', modal).forEach((t) => t.addEventListener('click', () => {
+      $$('.tab', modal).forEach((x) => { x.classList.toggle('on', x === t); x.setAttribute('aria-selected', x === t); });
+      $$('.tabpanel', modal).forEach((p) => (p.hidden = p.dataset.p !== t.dataset.t));
+    }));
+    modal.showModal();
+  };
+  $('#modalClose').addEventListener('click', () => modal.close());
+  modal.addEventListener('click', (e) => { if (e.target === modal) modal.close(); });
+
+  /* ---------- Alarmas ---------- */
+  $('#alarmGrid').innerHTML = ALARMS.map((a) => `
+    <button class="alarm" aria-expanded="false">
+      <span class="a-icon">${a.icon}</span>
+      <span class="a-title">${a.title}</span>
+      <span class="a-why">${a.why}</span>
+    </button>`).join('');
+  $$('.alarm').forEach((b) => b.addEventListener('click', () => {
+    const open = b.classList.toggle('open');
+    b.setAttribute('aria-expanded', open);
+  }));
+
+  /* ---------- Quiz ---------- */
+  const box = $('#quizBox');
+  let qi = 0, score = 0;
+  const renderQ = () => {
+    if (qi >= QUIZ.length) {
+      const pct = Math.round((score / QUIZ.length) * 100);
+      const msg = pct === 100 ? '¡Perfecto! Eres un experto digestivo 🏆' : pct >= 70 ? '¡Muy bien! Tu intestino estaría orgulloso 💪' : 'Buen intento. Repasa las fichas y vuelve a probar 📚';
+      box.innerHTML = `
+        <div class="q-result">
+          <div class="ring" style="--p:${pct}"><span>${score}/${QUIZ.length}</span></div>
+          <h3>${msg}</h3>
+          <button class="btn primary" id="qRestart">Volver a jugar</button>
+        </div>`;
+      $('#qRestart').addEventListener('click', () => { qi = 0; score = 0; renderQ(); });
+      return;
+    }
+    const item = QUIZ[qi];
+    box.innerHTML = `
+      <div class="q-progress"><span style="width:${(qi / QUIZ.length) * 100}%"></span></div>
+      <p class="q-count">Pregunta ${qi + 1} de ${QUIZ.length}</p>
+      <h3 class="q-text">“${item.q}”</h3>
+      <div class="q-actions">
+        <button class="q-btn myth" data-a="false">Mito</button>
+        <button class="q-btn real" data-a="true">Realidad</button>
+      </div>
+      <div class="q-feedback" hidden></div>`;
+    $$('.q-btn', box).forEach((b) => b.addEventListener('click', () => {
+      const ok = (b.dataset.a === 'true') === item.a;
+      if (ok) score++;
+      $$('.q-btn', box).forEach((x) => {
+        x.disabled = true;
+        if ((x.dataset.a === 'true') === item.a) x.classList.add('correct');
+        else if (x === b) x.classList.add('wrong');
+      });
+      const fb = $('.q-feedback', box);
+      fb.hidden = false;
+      fb.className = 'q-feedback ' + (ok ? 'ok' : 'ko');
+      fb.innerHTML = `<strong>${ok ? '¡Correcto!' : 'No exactamente.'}</strong> Es ${item.a ? 'realidad' : 'un mito'}. ${item.e}
+        <button class="btn primary small" id="qNext">${qi === QUIZ.length - 1 ? 'Ver resultado' : 'Siguiente'} →</button>`;
+      $('#qNext').addEventListener('click', () => { qi++; renderQ(); });
+    }));
+  };
+  renderQ();
+
+  /* ---------- Revelado al hacer scroll ---------- */
+  const rev = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); rev.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  $$('.section-head, .map-wrap, .journey, .filters, .alarm-grid, .quiz').forEach((el) => { el.classList.add('reveal'); rev.observe(el); });
+})();
+</script>
+</body>
+</html>
