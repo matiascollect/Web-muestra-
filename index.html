@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Digestiva · Enfermedades del sistema digestivo</title>
+  <meta name="description" content="Guía interactiva y concisa sobre las principales enfermedades del sistema digestivo: síntomas, causas, diagnóstico y tratamiento." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M10 4c8 0 16 4 16 12s-6 12-12 12-8-4-6-7 6-1 8-4-2-6-6-6-6-3 0-7z' fill='%23e8735a'/></svg>" />
+</head>
+<body>
+  <a class="skip" href="#mapa">Saltar al contenido</a>
+
+  <header class="topbar">
+    <a href="#inicio" class="brand">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M10 4c8 0 16 4 16 12s-6 12-12 12-8-4-6-7 6-1 8-4-2-6-6-6-6-3 0-7z"/></svg>
+      Digestiva
+    </a>
+    <nav class="nav" aria-label="Secciones">
+      <a href="#mapa">Mapa</a>
+      <a href="#recorrido">Recorrido</a>
+      <a href="#enfermedades">Enfermedades</a>
+      <a href="#alarma">Alarmas</a>
+      <a href="#quiz">Quiz</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema claro/oscuro">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+      <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+      <div class="hero-inner">
+        <p class="eyebrow">Guía interactiva de gastroenterología</p>
+        <h1>Un viaje de <em>9 metros</em> por tu sistema digestivo</h1>
+        <p class="lead">Conoce los órganos que transforman la comida en energía y las enfermedades más frecuentes que los afectan, explicadas de forma clara, precisa y breve.</p>
+        <div class="hero-cta">
+          <a href="#mapa" class="btn primary">Explorar el mapa</a>
+          <a href="#enfermedades" class="btn ghost">Ver enfermedades</a>
+        </div>
+        <dl class="stats">
+          <div><dt data-count="7">0</dt><dd>metros de intestino delgado (aprox.)</dd></div>
+          <div><dt data-count="24">0</dt><dd>enfermedades explicadas</dd></div>
+          <div><dt data-count="90" data-suffix="%">0</dt><dd>de los nutrientes se absorben en el intestino delgado</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- MAPA -->
+    <section class="section" id="mapa">
+      <div class="section-head">
+        <p class="eyebrow">01 · Anatomía</p>
+        <h2>Toca un órgano</h2>
+        <p>Selecciona cualquier parte del aparato digestivo para ver qué hace y qué enfermedades lo afectan.</p>
+      </div>
+
+      <div class="map-wrap">
+        <div class="body-card">
+          <svg id="anatomy" viewBox="0 0 300 470" role="img" aria-label="Diagrama del sistema digestivo">
+            <defs>
+              <radialGradient id="torso" cx="50%" cy="40%" r="65%">
+                <stop offset="0%" stop-color="var(--torso-1)"/>
+                <stop offset="100%" stop-color="var(--torso-2)"/>
+              </radialGradient>
+              <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+                <feGaussianBlur stdDeviation="4" result="b"/>
+                <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+
+            <!-- silueta -->
+            <path class="torso" d="M150 4c-22 0-34 16-34 36 0 14 6 24 14 30-6 6-30 8-50 18-22 12-30 34-32 70l-4 110c-2 50 8 110 30 160h152c22-50 32-110 30-160l-4-110c-2-36-10-58-32-70-20-10-44-12-50-18 8-6 14-16 14-30 0-20-12-36-34-36z" fill="url(#torso)"/>
+
+            <!-- Boca / faringe -->
+            <g class="organ" data-organ="boca" tabindex="0" role="button" aria-label="Boca y faringe">
+              <ellipse cx="150" cy="44" rx="14" ry="8" fill="var(--c-boca)"/>
+              <ellipse class="hit" cx="150" cy="44" rx="22" ry="14"/>
+            </g>
+
+            <!-- Esófago -->
+            <g class="organ" data-organ="esofago" tabindex="0" role="button" aria-label="Esófago">
+              <path d="M150 52 C150 90 152 120 168 154" stroke="var(--c-esofago)" stroke-width="10" fill="none" stroke-linecap="round"/>
+              <path class="hit-s" d="M150 52 C150 90 152 120 168 154"/>
+            </g>
+
+            <!-- Hígado -->
+            <g class="organ" data-organ="higado" tabindex="0" role="button" aria-label="Hígado">
+              <path d="M58 168 C70 140 130 130 182 142 C196 146 196 160 184 168 C160 186 130 206 98 214 C74 220 54 200 58 168Z" fill="var(--c-higado)"/>
+            </g>
+
+            <!-- Vesícula -->
+            <g class="organ" data-organ="vesicula" tabindex="0" role="button" aria-label="Vesícula biliar">
+              <ellipse cx="112" cy="214" rx="9" ry="15" transform="rotate(-25 112 214)" fill="var(--c-vesicula)"/>
+              <ellipse class="hit" cx="112" cy="214" rx="14" ry="20"/>
+            </g>
+
+            <!-- Estómago -->
+            <g class="organ" data-organ="estomago" tabindex="0" role="button" aria-label="Estómago">
+              <path d="M164 152 C176 144 192 148 200 158 C238 160 254 196 244 226 C232 258 190 266 162 250 C150 242 154 228 168 228 C190 232 206 218 202 198 C198 182 180 176 166 168Z" fill="var(--c-estomago)"/>
+            </g>
+
+            <!-- Páncreas -->
+            <g class="organ" data-organ="pancreas" tabindex="0" role="button" aria-label="Páncreas">
+              <path d="M126 262 C146 254 196 256 232 248 C246 246 248 260 236 264 C200 274 156 280 130 278 C118 277 116 266 126 262Z" fill="var(--c-pancreas)"/>
+            </g>
+
+            <!-- Intestino grueso -->
+            <g class="organ" data-organ="colon" tabindex="0" role="button" aria-label="Intestino grueso">
+              <path d="M84 398 C76 380 76 320 82 298 C86 288 96 288 120 290 L210 290 C222 290 228 296 228 310 L228 370 C228 392 214 402 192 404 C172 406 160 410 156 420" stroke="var(--c-colon)" stroke-width="20" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M84 398 C76 380 76 320 82 298 C86 288 96 288 120 290 L210 290 C222 290 228 296 228 310 L228 370 C228 392 214 402 192 404 C172 406 160 410 156 420" stroke="var(--colon-haustra)" stroke-width="20" stroke-dasharray="2 9" fill="none"/>
+              <path class="hit-s wide" d="M84 398 C76 380 76 320 82 298 C86 288 96 288 120 290 L210 290 C222 290 228 296 228 310 L228 370 C228 392 214 402 192 404 C172 406 160 410 156 420"/>
+            </g>
+
+            <!-- Apéndice -->
+            <g class="organ" data-organ="apendice" tabindex="0" role="button" aria-label="Apéndice">
+              <path d="M86 404 C86 416 92 424 100 428" stroke="var(--c-apendice)" stroke-width="6" fill="none" stroke-linecap="round"/>
+              <path class="hit-s" d="M86 404 C86 416 92 424 100 428"/>
+            </g>
+
+            <!-- Intestino delgado -->
+            <g class="organ" data-organ="delgado" tabindex="0" role="button" aria-label="Intestino delgado">
+              <rect class="hit" x="100" y="304" width="112" height="86" rx="30"/>
+              <path d="M170 280 C190 300 204 310 186 316 C150 324 112 308 110 324 C108 340 196 324 200 340 C204 356 112 344 112 360 C112 376 194 362 196 378 C198 392 120 388 92 396" stroke="var(--c-delgado)" stroke-width="11" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+
+            <!-- Recto y ano -->
+            <g class="organ" data-organ="recto" tabindex="0" role="button" aria-label="Recto y ano">
+              <path d="M156 420 C152 430 150 440 150 452" stroke="var(--c-recto)" stroke-width="16" fill="none" stroke-linecap="round"/>
+              <path class="hit-s" d="M156 420 C152 430 150 440 150 452"/>
+            </g>
+
+          </svg>
+          <p class="map-hint">Pasa el cursor o toca · usa <kbd>Tab</kbd> para navegar</p>
+        </div>
+
+        <aside class="organ-panel" id="organPanel" aria-live="polite">
+          <div class="panel-empty">
+            <div class="pulse-dot"></div>
+            <h3>Selecciona un órgano</h3>
+            <p>Cada parte del sistema digestivo cumple una función distinta: triturar, transportar, digerir, absorber o eliminar.</p>
+            <div class="organ-chips" id="organChips"></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- RECORRIDO -->
+    <section class="section alt" id="recorrido">
+      <div class="section-head">
+        <p class="eyebrow">02 · Fisiología</p>
+        <h2>El recorrido de un bocado</h2>
+        <p>Desliza para seguir a la comida desde la boca hasta su eliminación. Los tiempos son aproximados y varían entre personas.</p>
+      </div>
+
+      <div class="journey">
+        <div class="journey-figure" id="journeyFigure" aria-hidden="true"></div>
+        <div class="journey-main">
+        <div class="journey-track">
+          <div class="journey-fill" id="journeyFill"></div>
+          <div class="journey-stops" id="journeyStops"></div>
+        </div>
+        <input type="range" id="journeyRange" min="0" max="5" step="1" value="0" aria-label="Etapa del recorrido" />
+        <article class="journey-card" id="journeyCard"></article>
+        <div class="journey-controls">
+          <button class="btn ghost small" id="journeyPrev">← Anterior</button>
+          <button class="btn primary small" id="journeyPlay">▶ Reproducir</button>
+          <button class="btn ghost small" id="journeyNext">Siguiente →</button>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ENFERMEDADES -->
+    <section class="section" id="enfermedades">
+      <div class="section-head">
+        <p class="eyebrow">03 · Patologías</p>
+        <h2>Enfermedades frecuentes</h2>
+        <p>Filtra por órgano o tipo, o busca por nombre o síntoma. Pulsa una tarjeta para ver la ficha completa.</p>
+      </div>
+
+      <div class="filters">
+        <label class="search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+          <input type="search" id="search" placeholder="Busca: reflujo, diarrea, ictericia…" autocomplete="off" />
+        </label>
+        <div class="chip-row" id="organFilter" role="group" aria-label="Filtrar por órgano"></div>
+        <div class="chip-row small" id="typeFilter" role="group" aria-label="Filtrar por tipo"></div>
+      </div>
+
+      <p class="result-count" id="resultCount"></p>
+      <div class="grid" id="diseaseGrid"></div>
+    </section>
+
+    <!-- ALARMA -->
+    <section class="section alt" id="alarma">
+      <div class="section-head">
+        <p class="eyebrow">04 · Cuándo consultar</p>
+        <h2>Señales de alarma</h2>
+        <p>Estos síntomas no siempre indican algo grave, pero <strong>siempre</strong> merecen una evaluación médica. Toca cada una para saber por qué.</p>
+      </div>
+      <div class="alarm-grid" id="alarmGrid"></div>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="section" id="quiz">
+      <div class="section-head">
+        <p class="eyebrow">05 · Pon a prueba lo aprendido</p>
+        <h2>¿Mito o realidad?</h2>
+      </div>
+      <div class="quiz" id="quizBox"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p><strong>Aviso:</strong> contenido divulgativo basado en guías clínicas y fuentes médicas de referencia (OMS, AGA, ACG, NIH/NIDDK). No reemplaza la consulta, el diagnóstico ni el tratamiento de un profesional de la salud.</p>
+    <p class="muted">Digestiva · Hecho con curiosidad por el cuerpo humano</p>
+  </footer>
+
+  <!-- MODAL -->
+  <dialog class="modal" id="modal" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" aria-label="Cerrar">×</button>
+    <div id="modalBody"></div>
+  </dialog>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
